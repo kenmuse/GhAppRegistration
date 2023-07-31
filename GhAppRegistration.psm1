@@ -4,12 +4,13 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues['*:ErrorAction']='Stop'
 
-New-Variable -Name DirectoryReadAllAppRoleId        -Value '7ab1d382-f21e-4acd-a863-ba3e13f7da61' -Option Constant -Scope Script
-New-Variable -Name MsGraphResourceId                -Value 'e51b873a-e178-4e6a-ab84-b07d68b33bc8' -Option Constant -Scope Script
-New-Variable -Name AzRoleUserAccessAdministrator    -Value '18d7d88d-d35e-4fb5-a5c3-7773c20a72d9' -Option Constant -Scope Script
-New-Variable -Name AzRoleContributor                -Value 'b24988ac-6180-42a0-ab88-20f7382dd24c' -Option Constant -Scope Script
-New-Variable -Name MicrosoftGraphApiId              -Value '00000003-0000-0000-c000-000000000000' -Option Constant -Scope Script
-New-Variable -Name FedCredentialName                -Value 'GitHub'                               -Option Constant -Scope Script
+New-Variable -Name DirectoryReadAllAppRoleId        -Value '7ab1d382-f21e-4acd-a863-ba3e13f7da61'        -Option Constant -Scope Script
+New-Variable -Name MsGraphResourceId                -Value 'e51b873a-e178-4e6a-ab84-b07d68b33bc8'        -Option Constant -Scope Script
+New-Variable -Name AzRoleUserAccessAdministrator    -Value '18d7d88d-d35e-4fb5-a5c3-7773c20a72d9'        -Option Constant -Scope Script
+New-Variable -Name AzRoleContributor                -Value 'b24988ac-6180-42a0-ab88-20f7382dd24c'        -Option Constant -Scope Script
+New-Variable -Name MicrosoftGraphApiId              -Value '00000003-0000-0000-c000-000000000000'        -Option Constant -Scope Script
+New-Variable -Name FedCredentialName                -Value 'GitHub'                                      -Option Constant -Scope Script
+New-Variable -Name GitHubIssuer                     -Value 'https://token.actions.githubusercontent.com' -Option Constant -Scope Script
 
 <#
 .SYNOPSIS
@@ -65,7 +66,7 @@ function New-GhAzOidcApplication {
     $FedCredential = @{
         ApplicationObjectId = $app.Id
         Audience = @('api://AzureADTokenExchange')
-        Issuer = 'https://token.actions.githubusercontent.com'
+        Issuer = $GitHubIssuer
         Name = $FedCredentialName
         Subject = $Subject
     }
